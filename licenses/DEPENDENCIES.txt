@@ -1,0 +1,63 @@
+OpenWidget - third-party components
+===================================
+
+OpenWidget's MIT license covers its original code and assets only.
+The following unmodified binaries retain their upstream licenses.
+Exact runtime binary SHA-256 values are recorded in dependencies.json.
+The GPL driver installer is a separate, optional program, not linked into
+OpenWidget. No DualSenseClient application or assemblies are distributed.
+
+LibreHardwareMonitor 0.9.6 - MPL-2.0
+Copyright LibreHardwareMonitor contributors.
+https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/tree/v0.9.6
+License: LibreHardwareMonitor-LICENSE.txt
+Additional upstream notices: LibreHardwareMonitor-NOTICES.txt
+Its embedded signed PawnIO.Modules are version 0.1.6, under LGPL-2.1:
+https://github.com/namazso/PawnIO.Modules/tree/0.1.6
+License: PawnIO.Modules-LGPL-2.1.txt
+
+DiskInfoToolkit 1.1.2 - MPL-2.0, Copyright Florian K.
+https://github.com/Blacktempel/DiskInfoToolkit/tree/25319eae5781e75bcf141e844ceab2afe94d40ea
+
+RAMSPDToolkit-NDD 1.4.2 - MPL-2.0, Copyright Florian K.
+https://github.com/Blacktempel/RAMSPDToolkit/tree/3b47b960e0830fef344624ad5e389675d5f0a1ce
+
+BlackSharp.Core 1.0.7 - MPL-2.0, Copyright Florian K.
+https://github.com/Blacktempel/BlackSharp/tree/c70b735c6cec123ee8a046ac4a0bc6c606f52cf0
+
+MPL-2.0 license text for the above libraries: LibreHardwareMonitor-LICENSE.txt.
+Source archives for these exact revisions and PawnIO components are also
+provided as OpenWidget-ThirdPartySources.zip alongside the portable release:
+https://github.com/Kibra2025/OpenWidget/releases/tag/v1.7.0
+Use the source URLs above or the separate source archive to inspect/rebuild
+the libraries. These DLLs remain separate and may be replaced with compatible
+rebuilt versions; OpenWidget's original source and build scripts are public.
+
+HidSharp 2.6.4 - Apache-2.0
+Copyright 2010-2025 James F. Bellinger.
+https://software.seekye.com/hidsharp
+Full copyright and license: HidSharp-LICENSE.txt
+
+System.Memory 4.6.3, System.Buffers 4.6.1,
+System.Numerics.Vectors 4.6.1,
+System.Runtime.CompilerServices.Unsafe 6.1.2 - MIT
+Copyright (c) .NET Foundation and Contributors.
+https://github.com/dotnet/maintenance-packages/tree/f62ca0009b038cab4725a720f386623a969d73ad
+License: Microsoft-MIT.txt
+
+PawnIO Setup 2.2.0 - unmodified official signed installer
+https://github.com/namazso/PawnIO.Setup/releases/tag/2.2.0
+Driver source and license (GPL-2.0): https://github.com/namazso/PawnIO/tree/2.2.0
+License text: PawnIO-LICENSE.txt
+The driver is needed for supported CPU temperature access, must be installed
+separately, and is never installed automatically by OpenWidget.
+
+LogiCopy+ Windows HID++ transport - MIT
+Copyright (c) 2026 LogiCopy+ contributors.
+LogitechHidTransport.cs is adapted from native/LogiBridge.cs for battery reads.
+Full retained notice: LogiCopy-MIT.txt
+All necessary adapted source is included; no external helper is required.
+
+DualSense battery protocol: independent implementation using HidSharp.
+Protocol references, revision and data limitations:
+DualSense-protocol-reference.txt

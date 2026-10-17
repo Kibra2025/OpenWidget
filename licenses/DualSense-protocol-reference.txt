@@ -1,0 +1,39 @@
+DualSense HID protocol references
+================================
+
+OpenWidget implements the DualSense battery protocol independently using
+the existing HidSharp dependency and Windows HID/SetupAPI interfaces. It does not
+bundle or link the DualSenseClient application or its .NET 10 assemblies.
+
+Protocol reference:
+https://github.com/DualSenseClient/DualSenseClient
+Revision: 5e9c019b138e15ca85949994d9258f895940b84e
+Upstream project license: GPL-3.0.
+
+Source files consulted for device IDs, report layout, battery encoding and MAC:
+source/DualSenseClient.Controllers/ControllerFactory.cs
+source/DualSenseClient.Controllers/DualSense/Input/BatteryState.cs
+source/DualSenseClient.Controllers/DualSense/Enum/BatteryPowerState.cs
+source/DualSenseClient.Controllers/DualSense/Input/ConnectionStatus.cs
+source/DualSenseClient.Controllers/DualSense/Input/DualSenseRawReport.cs
+source/DualSenseClient.Controllers/DualSense/Feature/PairingInfo.cs
+
+Additional protocol reference for Bluetooth input CRC32 (prefix 0xA1), calibration
+GET_FEATURE report 0x05 (41 bytes), and USB/Bluetooth report lengths:
+https://github.com/torvalds/linux/blob/master/drivers/hid/hid-playstation.c
+
+USB uses input report 0x01, with the payload beginning at byte 1; Bluetooth uses
+input report 0x31, with the payload beginning at byte 2. Battery and power flags
+are at payload offsets 52 and 53. Simple Bluetooth report 0x01 carries no battery
+data and is never decoded as a USB report, even if padded to 78 bytes by Windows.
+
+Battery percentages follow the referenced DualSenseClient revision: discharging
+levels 0..10 map to min(level*10+5,100); charging levels map to max((level-1)*10,0).
+Completed charging is 100%. Invalid levels and unknown/error power states have
+no percentage. The result is an indication in approximately ten-percent steps,
+not a measurement accurate to one percent.
+
+All communication is input or GET_FEATURE. No output/SET_FEATURE reports,
+rumble, lights, trigger effects, profiles, pairing changes or drivers are used.
+Reading calibration over Bluetooth requests full telemetry from the controller;
+it does not write calibration values.
