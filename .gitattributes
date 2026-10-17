@@ -1,9 +1,6 @@
-* text=auto
-*.cs text eol=crlf
-*.xaml text eol=crlf
-*.csproj text eol=crlf
-*.ps1 text eol=crlf
-*.bat text eol=crlf
+# Preserve the existing source line endings when cloning on Windows.
+# Documentation and workflow files use LF; binary assets stay unmodified.
+* -text
 *.md text eol=lf
 *.yml text eol=lf
 *.json text eol=lf
