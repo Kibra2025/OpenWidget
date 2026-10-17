@@ -1,0 +1,37 @@
+name: Publish release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Build and run regression checks
+        shell: powershell
+        run: .\build.ps1 -RunTests
+      - name: Check tag and package version
+        shell: powershell
+        run: |
+          $version = ([version]([Diagnostics.FileVersionInfo]::GetVersionInfo("$PWD/bin/Release/OpenWidget.exe").FileVersion)).ToString(3)
+          if ($env:GITHUB_REF_NAME -ne "v$version") { throw 'Tag does not match the assembly version.' }
+          .\publish.ps1 -SkipBuild
+      - name: Publish portable ZIP and checksum
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          $assets = Get-ChildItem -LiteralPath dist -File | Where-Object { $_.Name -match '^OpenWidget-.*(\.zip|SHA256SUMS\.txt)$' } | Select-Object -ExpandProperty FullName
+          gh release view $env:GITHUB_REF_NAME *> $null
+          if ($LASTEXITCODE -eq 0) { Write-Host 'Release already published; leaving existing assets unchanged.'; exit 0 }
+          gh release create $env:GITHUB_REF_NAME @assets --verify-tag --title "OpenWidget $env:GITHUB_REF_NAME" --generate-notes
+          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed.' }
