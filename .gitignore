@@ -1,0 +1,26 @@
+# Generated files, packages and local development caches
+bin/
+obj/
+.build/
+dist/
+.vs/
+.vscode/
+*.user
+*.suo
+*.pdb
+*.log
+*.tmp
+*.bak
+TestResults/
+libs/*.dll
+tools/*.exe
+
+# Machine-specific settings and diagnostic output
+config.json
+config.json.bak
+diagnostics*.json
+.env
+.env.*
+!.env.example
+Thumbs.db
+Desktop.ini

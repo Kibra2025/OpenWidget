@@ -1,0 +1,29 @@
+<Window x:Class="DeskHardwareWidget.BatteryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Batterie · OpenWidget" Icon="/OpenWidget;component/Assets/App.ico" WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" ShowInTaskbar="False" ShowActivated="False" Topmost="False"
+        ResizeMode="NoResize" SizeToContent="WidthAndHeight" FontFamily="Segoe UI"
+        Loaded="Window_Loaded" Closing="Window_Closing" Closed="Window_Closed"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseRightButtonUp="Window_MouseRightButtonUp">
+    <Window.Resources>
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width" Value="10"/><Setter Property="Background" Value="#191B23"/>
+            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ScrollBar">
+                <Border Background="{TemplateBinding Background}"><Track x:Name="PART_Track" IsDirectionReversed="True" Orientation="Vertical">
+                    <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageUpCommand" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>
+                    <Track.Thumb><Thumb MinHeight="24"><Thumb.Template><ControlTemplate TargetType="Thumb"><Border Background="#3D455C" CornerRadius="4" Margin="2"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+                    <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageDownCommand" Focusable="False"><RepeatButton.Template><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></RepeatButton.Template></RepeatButton></Track.IncreaseRepeatButton>
+                </Track></Border>
+            </ControlTemplate></Setter.Value></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="12">
+        <Border x:Name="WidgetSurface" Background="#F015161C" BorderBrush="#2E3240" BorderThickness="1" CornerRadius="24" Padding="12,18,12,10">
+            <Border.Effect><DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.5" Color="#000000"/></Border.Effect>
+                <ScrollViewer x:Name="DevicesScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MaxHeight="560">
+                <WrapPanel x:Name="BatteryCards" Width="456" ItemHeight="176"/>
+                </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>
